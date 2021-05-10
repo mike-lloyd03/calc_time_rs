@@ -1,42 +1,32 @@
-use std::io;
-// use std::fmt;
-use time::Time;
-// use time::Duration;
-use chrono::NaiveTime;
-use chrono::Local;
 use chrono::Duration;
+use chrono::NaiveTime;
+use std::io;
 
 fn main() {
     calc_time();
 }
 
 fn calc_time() {
-    println!("Enter times as \"HHMM\"");
+    println!("Enter all times as four digit 24 hr times without colons (e.g. \"1415\").");
 
-    let mut start_time = String::new();
     println!("Enter start time: ");
-    io::stdin().read_line(&mut start_time).expect("Try again idiot");
-    
-    let mut start_lunch = String::new();
+    let start_time_obj = get_time_input();
+
     println!("Enter lunch start time: ");
-    io::stdin().read_line(&mut start_lunch).expect("Try again idiot");
+    let start_lunch_obj = get_time_input();
 
-    let mut end_lunch = String::new();
     println!("Enter lunch end time: ");
-    io::stdin().read_line(&mut end_lunch).expect("Try again idiot");
+    let end_lunch_obj = get_time_input();
 
-    let mut end_time = String::new();
     println!("Enter end time: ");
-    io::stdin().read_line(&mut end_time).expect("Try again idiot");
+    let end_time_obj = get_time_input();
 
-    println!("start time = {}", start_time.trim());
-    println!("start_lunch = {}", start_lunch.trim());
-    println!("end_lunch = {}", end_lunch.trim());
-    println!("end_time = {}", end_time.trim());
+    println!("start time = {}", start_time_obj.format("%H%M"));
+    println!("start_lunch = {}", start_lunch_obj.format("%H%M"));
+    println!("end_lunch = {}", end_lunch_obj.format("%H%M"));
+    println!("end_time = {}", end_time_obj.format("%H%M"));
 
-    let start_time_obj = NaiveTime::parse_from_str(&start_time.trim(), "%H%M").unwrap();
-    let end_time_obj = NaiveTime::parse_from_str(&end_time.trim(), "%H%M").unwrap();
-    let total_time = end_time_obj - start_time_obj;
+    let total_time = end_time_obj - start_time_obj - (end_lunch_obj - start_lunch_obj);
     println!("time {}", format_duration(&total_time));
 }
 
@@ -46,10 +36,9 @@ fn format_duration(d: &Duration) -> String {
     format!("{}:{:02}", h, m)
 }
 
-// impl fmt::Display for Duration {
-//     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-//         let h:i8 = self.seconds / 3600;
-//         let m:u8 = self.seconds % (h * 3600) / 60;
-//         write!(f, "{}:{}", h, m)
-//     }
-// }
+fn get_time_input() -> NaiveTime {
+    let mut time = String::new();
+    io::stdin().read_line(&mut time).unwrap();
+    NaiveTime::parse_from_str(&time.trim(), "%H%M")
+        .expect("Entered time format is invalid. Please enter time as \"HHMM\"")
+}
