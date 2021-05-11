@@ -21,13 +21,13 @@ fn calc_time() {
     println!("Enter end time: ");
     let end_time_obj = get_time_input();
 
-    println!("start time = {}", start_time_obj.format("%H%M"));
-    println!("start_lunch = {}", start_lunch_obj.format("%H%M"));
-    println!("end_lunch = {}", end_lunch_obj.format("%H%M"));
-    println!("end_time = {}", end_time_obj.format("%H%M"));
+    // println!("start time = {}", start_time_obj.format("%H%M"));
+    // println!("start_lunch = {}", start_lunch_obj.format("%H%M"));
+    // println!("end_lunch = {}", end_lunch_obj.format("%H%M"));
+    // println!("end_time = {}", end_time_obj.format("%H%M"));
 
     let total_time = end_time_obj - start_time_obj - (end_lunch_obj - start_lunch_obj);
-    println!("time {}", format_duration(&total_time));
+    println!("Total time {}", format_duration(&total_time));
 }
 
 fn format_duration(d: &Duration) -> String {

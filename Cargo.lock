@@ -7,6 +7,14 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cdb031dd78e28731d87d56cc8ffef4a8f36ca26c38fe2de700543e627f8a464a"
 
 [[package]]
+name = "calc_time_rs"
+version = "0.1.0"
+dependencies = [
+ "chrono",
+ "time 0.3.0-alpha-0",
+]
+
+[[package]]
 name = "chrono"
 version = "0.4.19"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -79,14 +87,6 @@ dependencies = [
  "const_fn",
  "libc",
  "standback",
-]
-
-[[package]]
-name = "time_calc_rs"
-version = "0.1.0"
-dependencies = [
- "chrono",
- "time 0.3.0-alpha-0",
 ]
 
 [[package]]
